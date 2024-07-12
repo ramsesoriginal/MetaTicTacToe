@@ -23,7 +23,7 @@ namespace MetaTicTacToe.Controllers
         }
 
         /// <summary>
-        /// Starts a new game.
+        /// Starts a new game, assigning it a new ID and initializing the board.
         /// </summary>
         /// <returns>The newly started game.</returns>
         [HttpPost("start")]
@@ -34,7 +34,7 @@ namespace MetaTicTacToe.Controllers
         }
 
         /// <summary>
-        /// Makes a move in the specified game.
+        /// Makes a move in the specified game, and validates if the move is allowed and correct.
         /// </summary>
         /// <param name="move">The move to make.</param>
         /// <returns>The updated game after the move is made.</returns>
