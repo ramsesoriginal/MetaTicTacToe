@@ -1,3 +1,3 @@
 const CONFIG = {
-    BACKEND_URL: 'http://metatictactoeapp.azurewebsites.net/api'
+    BACKEND_URL: 'https://metatictactoeapp.azurewebsites.net/api'
 };
