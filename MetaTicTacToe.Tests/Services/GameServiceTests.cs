@@ -21,6 +21,76 @@ namespace MetaTicTacToe.Tests.Services
         }
 
         [Fact]
+        public void GetAllGames_ShouldReturnAllGames()
+        {
+            // Arrange
+            var games = new List<Game>
+            {
+                new Game { Id = 1 },
+                new Game { Id = 2 }
+            };
+            _mockGameRepository.Setup(repo => repo.GetAllGames()).Returns(games);
+
+            // Act
+            var result = _gameService.GetAllGames();
+
+            // Assert
+            Assert.Equal(games, result);
+            _mockGameRepository.Verify(repo => repo.GetAllGames(), Times.Once);
+        }
+
+        [Fact]
+        public void GetOpenGames_ShouldReturnOnlyOpenGames()
+        {
+            // Arrange
+            var openGames = new List<Game>
+            {
+                new Game { Id = 1, Winner = null },
+                new Game { Id = 3, Winner = null }
+            };
+            _mockGameRepository.Setup(repo => repo.GetOpenGames()).Returns(openGames);
+
+            // Act
+            var result = _gameService.GetOpenGames();
+
+            // Assert
+            Assert.Equal(openGames, result);
+            _mockGameRepository.Verify(repo => repo.GetOpenGames(), Times.Once);
+        }
+
+        [Fact]
+        public void GetClosedGames_ShouldReturnOnlyClosedGames()
+        {
+            // Arrange
+            var closedGames = new List<Game>
+            {
+                new Game { Id = 2, Winner = new Player("Player1", true) }
+            };
+            _mockGameRepository.Setup(repo => repo.GetClosedGames()).Returns(closedGames);
+
+            // Act
+            var result = _gameService.GetClosedGames();
+
+            // Assert
+            Assert.Equal(closedGames, result);
+            _mockGameRepository.Verify(repo => repo.GetClosedGames(), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteGame_ShouldCallRepositoryDeleteGame()
+        {
+            // Arrange
+            var gameId = 1;
+            _mockGameRepository.Setup(repo => repo.DeleteGame(gameId)).Verifiable();
+
+            // Act
+            _gameService.DeleteGame(gameId);
+
+            // Assert
+            _mockGameRepository.Verify(repo => repo.DeleteGame(gameId), Times.Once);
+        }
+
+        [Fact]
         public void StartGame_ShouldInitializeNewGame()
         {
             // Arrange

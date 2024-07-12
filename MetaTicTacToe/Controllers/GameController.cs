@@ -60,5 +60,51 @@ namespace MetaTicTacToe.Controllers
             }
             return Ok(game);
         }
+
+
+        /// <summary>
+        /// Retrieves all games.
+        /// </summary>
+        /// <returns>An enumerable collection of all games.</returns>
+        [HttpGet("all")]
+        public ActionResult<IEnumerable<Game>> GetAllGames()
+        {
+            var games = _gameService.GetAllGames();
+            return Ok(games);
+        }
+
+        /// <summary>
+        /// Retrieves only the open games (games with no winner).
+        /// </summary>
+        /// <returns>An enumerable collection of open games.</returns>
+        [HttpGet("open")]
+        public ActionResult<IEnumerable<Game>> GetOpenGames()
+        {
+            var games = _gameService.GetOpenGames();
+            return Ok(games);
+        }
+
+        /// <summary>
+        /// Retrieves only the closed games (games with a winner).
+        /// </summary>
+        /// <returns>An enumerable collection of closed games.</returns>
+        [HttpGet("closed")]
+        public ActionResult<IEnumerable<Game>> GetClosedGames()
+        {
+            var games = _gameService.GetClosedGames();
+            return Ok(games);
+        }
+
+        /// <summary>
+        /// Deletes a game by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the game to delete.</param>
+        /// <returns>No content if the deletion is successful.</returns>
+        [HttpDelete("{id}")]
+        public IActionResult DeleteGame(int id)
+        {
+            _gameService.DeleteGame(id);
+            return NoContent();
+        }
     }
 }

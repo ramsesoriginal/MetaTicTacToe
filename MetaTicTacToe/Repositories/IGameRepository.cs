@@ -45,5 +45,11 @@ namespace MetaTicTacToe.Repositories
         /// </summary>
         /// <param name="game">The game with updated information.</param>
         void UpdateGame(Game game);
+
+        /// <summary>
+        /// Deletes a game by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the game to delete.</param>
+        void DeleteGame(int id);
     }
 }

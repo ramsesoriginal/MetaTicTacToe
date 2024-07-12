@@ -80,5 +80,78 @@ namespace MetaTicTacToe.Tests.Controllers
             var notFoundResult = Assert.IsType<NotFoundResult>(result.Result);
             Assert.Equal(404, notFoundResult.StatusCode);
         }
+        [Fact]
+        public void GetAllGames_ShouldReturnAllGames()
+        {
+            // Arrange
+            var games = new List<Game>
+            {
+                new Game { Id = 1 },
+                new Game { Id = 2 }
+            };
+            _mockGameService.Setup(service => service.GetAllGames()).Returns(games);
+
+            // Act
+            var result = _gameController.GetAllGames();
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnGames = Assert.IsAssignableFrom<IEnumerable<Game>>(okResult.Value);
+            Assert.Equal(games, returnGames);
+        }
+
+        [Fact]
+        public void GetOpenGames_ShouldReturnOnlyOpenGames()
+        {
+            // Arrange
+            var openGames = new List<Game>
+            {
+                new Game { Id = 1, Winner = null },
+                new Game { Id = 3, Winner = null }
+            };
+            _mockGameService.Setup(service => service.GetOpenGames()).Returns(openGames);
+
+            // Act
+            var result = _gameController.GetOpenGames();
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnGames = Assert.IsAssignableFrom<IEnumerable<Game>>(okResult.Value);
+            Assert.Equal(openGames, returnGames);
+        }
+
+        [Fact]
+        public void GetClosedGames_ShouldReturnOnlyClosedGames()
+        {
+            // Arrange
+            var closedGames = new List<Game>
+            {
+                new Game { Id = 2, Winner = new Player("Player1", true) }
+            };
+            _mockGameService.Setup(service => service.GetClosedGames()).Returns(closedGames);
+
+            // Act
+            var result = _gameController.GetClosedGames();
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnGames = Assert.IsAssignableFrom<IEnumerable<Game>>(okResult.Value);
+            Assert.Equal(closedGames, returnGames);
+        }
+
+        [Fact]
+        public void DeleteGame_ShouldReturnNoContent()
+        {
+            // Arrange
+            var gameId = 1;
+            _mockGameService.Setup(service => service.DeleteGame(gameId)).Verifiable();
+
+            // Act
+            var result = _gameController.DeleteGame(gameId);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+            _mockGameService.Verify(service => service.DeleteGame(gameId), Times.Once);
+        }
     }
 }

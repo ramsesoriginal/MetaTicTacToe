@@ -63,5 +63,18 @@ namespace MetaTicTacToe.Repositories
                 _games.Add(game);
             }
         }
+
+        /// <summary>
+        /// Deletes a game by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the game to delete.</param>
+        public void DeleteGame(int id)
+        {
+            var game = GetGame(id);
+            if (game != null)
+            {
+                _games.Remove(game);
+            }
+        }
     }
 }

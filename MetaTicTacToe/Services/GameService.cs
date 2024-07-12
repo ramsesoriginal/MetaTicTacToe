@@ -94,6 +94,42 @@ namespace MetaTicTacToe.Services
         }
 
         /// <summary>
+        /// Retrieves all games.
+        /// </summary>
+        /// <returns>An enumerable collection of all games.</returns>
+        public IEnumerable<Game> GetAllGames()
+        {
+            return _gameRepository.GetAllGames();
+        }
+
+        /// <summary>
+        /// Retrieves only the open games (games with no winner).
+        /// </summary>
+        /// <returns>An enumerable collection of open games.</returns>
+        public IEnumerable<Game> GetOpenGames()
+        {
+            return _gameRepository.GetOpenGames();
+        }
+
+        /// <summary>
+        /// Retrieves only the closed games (games with a winner).
+        /// </summary>
+        /// <returns>An enumerable collection of closed games.</returns>
+        public IEnumerable<Game> GetClosedGames()
+        {
+            return _gameRepository.GetClosedGames();
+        }
+
+        /// <summary>
+        /// Deletes a game by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the game to delete.</param>
+        public void DeleteGame(int id)
+        {
+            _gameRepository.DeleteGame(id);
+        }
+
+        /// <summary>
         /// Checks for a winner in a set of boards or cells.
         /// </summary>
         /// <param name="boards">The set of boards or cells to check.</param>

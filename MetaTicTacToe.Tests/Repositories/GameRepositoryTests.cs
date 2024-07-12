@@ -147,5 +147,25 @@ namespace MetaTicTacToe.Tests.Repositories
             // Assert
             Assert.Null(retrievedGame);
         }
+
+        [Fact]
+        public void DeleteGame_ShouldRemoveGame()
+        {
+            // Arrange
+            var repository = new GameRepository();
+            var game1 = new Game { Id = 1 };
+            var game2 = new Game { Id = 2 };
+            repository.AddGame(game1);
+            repository.AddGame(game2);
+
+            // Act
+            repository.DeleteGame(1);
+            var result = repository.GetAllGames();
+
+            // Assert
+            Assert.DoesNotContain(game1, result);
+            Assert.Contains(game2, result);
+            Assert.Single(result);
+        }
     }
 }

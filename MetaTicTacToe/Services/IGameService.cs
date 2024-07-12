@@ -26,5 +26,29 @@ namespace MetaTicTacToe.Services
         /// <param name="id">The identifier of the game.</param>
         /// <returns>The game with the specified identifier, or null if no game is found.</returns>
         Game GetGameStatus(int id);
+
+        /// <summary>
+        /// Retrieves all games.
+        /// </summary>
+        /// <returns>An enumerable collection of all games.</returns>
+        IEnumerable<Game> GetAllGames();
+
+        /// <summary>
+        /// Retrieves only the open games (games with no winner).
+        /// </summary>
+        /// <returns>An enumerable collection of open games.</returns>
+        IEnumerable<Game> GetOpenGames();
+
+        /// <summary>
+        /// Retrieves only the closed games (games with a winner).
+        /// </summary>
+        /// <returns>An enumerable collection of closed games.</returns>
+        IEnumerable<Game> GetClosedGames();
+
+        /// <summary>
+        /// Deletes a game by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the game to delete.</param>
+        void DeleteGame(int id);
     }
 }
