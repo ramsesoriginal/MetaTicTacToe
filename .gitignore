@@ -396,3 +396,13 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Ignore Rider project files
+.idea/
+
+# Ignore WebStorm
+.idea/
+
+# Ignore NCrunch
+*.ncrunchsolution
+*.ncrunchproject
