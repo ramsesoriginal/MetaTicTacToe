@@ -25,7 +25,7 @@ namespace MetaTicTacToe.Models.Converter {
             }
             else
             {
-                writer.WriteStringValue(" ");
+                writer.WriteStringValue("");
             }
         }
     }
