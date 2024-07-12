@@ -23,6 +23,17 @@ namespace MetaTicTacToe
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
             services.AddControllers();
             services.AddSingleton<IGameRepository, GameRepository>();
             services.AddTransient<IGameService, GameService>();
@@ -46,6 +57,9 @@ namespace MetaTicTacToe
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            app.UseCors("AllowAllOrigins");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
