@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
-        fetch('https://your-backend-url/api/game/start', {
+        fetch(`${CONFIG.BACKEND_URL}/game/start`, {
             method: 'POST'
         })
         .then(response => response.json())
@@ -32,11 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
             game.boards.forEach(board => {
                 gameContainer.appendChild(createBoard(board, game.id));
             });
-        });
+        })
+        .catch(error => console.error('Error starting game:', error));
     }
 
     function makeMove(gameId, boardId, row, column) {
-        fetch('https://your-backend-url/api/game/move', {
+        fetch(`${CONFIG.BACKEND_URL}/game/move`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -56,11 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
             game.boards.forEach(board => {
                 gameContainer.appendChild(createBoard(board, game.id));
             });
-        });
+        })
+        .catch(error => console.error('Error making move:', error));
     }
 
     function listGames() {
-        fetch('https://your-backend-url/api/game/all')
+        fetch(`${CONFIG.BACKEND_URL}/game/all`)
         .then(response => response.json())
         .then(games => {
             gamesList.innerHTML = '';
@@ -70,18 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameItem.addEventListener('click', () => loadGame(game.id));
                 gamesList.appendChild(gameItem);
             });
-        });
+        })
+        .catch(error => console.error('Error listing games:', error));
     }
 
     function loadGame(gameId) {
-        fetch(`https://your-backend-url/api/game/${gameId}/status`)
+        fetch(`${CONFIG.BACKEND_URL}/game/${gameId}/status`)
         .then(response => response.json())
         .then(game => {
             gameContainer.innerHTML = '';
             game.boards.forEach(board => {
                 gameContainer.appendChild(createBoard(board, game.id));
             });
-        });
+        })
+        .catch(error => console.error('Error loading game:', error));
     }
 
     // Automatically list games when the page loads
