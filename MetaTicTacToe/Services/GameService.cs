@@ -17,12 +17,6 @@ namespace MetaTicTacToe.Services
         {
             var game = new Game
             {
-                Boards = new Board[3][]
-                {
-                    new Board[3],
-                    new Board[3],
-                    new Board[3]
-                },
                 CurrentPlayer = "Player1"
             };
 
@@ -47,7 +41,7 @@ namespace MetaTicTacToe.Services
             }
 
             var board = game.Boards[move.BoardRow][move.BoardColumn];
-            board.Cells[move.CellRow, move.CellColumn] = move.Player;
+            board.Cells[move.CellRow][move.CellColumn] = move.Player;
             game.CurrentPlayer = game.CurrentPlayer == "Player1" ? "Player2" : "Player1";
 
             _gameRepository.UpdateGame(game);
