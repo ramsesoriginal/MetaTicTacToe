@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaTicTacToe", "MetaTicTacToe.csproj", "{0B630F3F-EAC9-4712-B724-5F6DDCE2D311}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaTicTacToe.Tests", "..\MetaTicTacToe.Tests\MetaTicTacToe.Tests.csproj", "{84301E81-CDC2-4281-BB29-3AD76F872BEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0B630F3F-EAC9-4712-B724-5F6DDCE2D311}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B630F3F-EAC9-4712-B724-5F6DDCE2D311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B630F3F-EAC9-4712-B724-5F6DDCE2D311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84301E81-CDC2-4281-BB29-3AD76F872BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84301E81-CDC2-4281-BB29-3AD76F872BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84301E81-CDC2-4281-BB29-3AD76F872BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84301E81-CDC2-4281-BB29-3AD76F872BEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
