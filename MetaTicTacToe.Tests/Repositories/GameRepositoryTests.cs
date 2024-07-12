@@ -66,6 +66,55 @@ namespace MetaTicTacToe.Tests.Repositories
             Assert.Equal(2, ((List<Game>)games).Count);
         }
 
+
+
+        [Fact]
+        public void GetOpenGames_ShouldReturnOnlyOpenGames()
+        {
+
+            var repository = new GameRepository();
+
+            // Arrange
+            var openGame1 = new Game { Id = 1, Winner = null };
+            var closedGame = new Game { Id = 2, Winner = new Player("Player1", true) };
+            var openGame2 = new Game { Id = 3, Winner = null };
+            repository.AddGame(openGame1);
+            repository.AddGame(closedGame);
+            repository.AddGame(openGame2);
+
+            // Act
+            var result = repository.GetOpenGames();
+
+            // Assert
+            Assert.Contains(openGame1, result);
+            Assert.Contains(openGame2, result);
+            Assert.DoesNotContain(closedGame, result);
+            Assert.Equal(2, result.Count());
+        }
+
+        [Fact]
+        public void GetClosedGames_ShouldReturnOnlyClosedGames()
+        {
+            var repository = new GameRepository();
+
+            // Arrange
+            var openGame1 = new Game { Id = 1, Winner = null };
+            var closedGame = new Game { Id = 2, Winner = new Player("Player1", true) };
+            var openGame2 = new Game { Id = 3, Winner = null };
+            repository.AddGame(openGame1);
+            repository.AddGame(closedGame);
+            repository.AddGame(openGame2);
+
+            // Act
+            var result = repository.GetClosedGames();
+
+            // Assert
+            Assert.Contains(closedGame, result);
+            Assert.DoesNotContain(openGame1, result);
+            Assert.DoesNotContain(openGame2, result);
+            Assert.Single(result);
+        }
+
         [Fact]
         public void UpdateGame_ShouldUpdateExistingGame()
         {

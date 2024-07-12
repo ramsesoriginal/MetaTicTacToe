@@ -22,6 +22,18 @@ namespace MetaTicTacToe.Repositories
         IEnumerable<Game> GetAllGames();
 
         /// <summary>
+        /// Retrieves all open games.
+        /// </summary>
+        /// <returns>An enumerable collection of all open games.</returns>
+        IEnumerable<Game> GetOpenGames();
+
+        /// <summary>
+        /// Retrieves all closed games.
+        /// </summary>
+        /// <returns>An enumerable collection of all closed games.</returns>
+        IEnumerable<Game> GetClosedGames();
+
+        /// <summary>
         /// Adds a new game to the repository.
         /// </summary>
         /// <param name="game">The game to add.</param>
