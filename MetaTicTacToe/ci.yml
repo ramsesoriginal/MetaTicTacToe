@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore MetaTicTacToe/MetaTicTacToe.csproj
+      run: dotnet restore MetaTicTacToe.sln
       working-directory: MetaTicTacToe
     - name: Build
       run: dotnet build --no-restore
