@@ -5,17 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startGameButton.addEventListener('click', startGame);
 
-    function createBoard(board, gameId) {
+    function createBoard(boardrow, gameId) {
         const boardElement = document.createElement('div');
         boardElement.className = 'board';
-
-        board.cells.forEach((row, rowIndex) => {
-            row.forEach((cell, cellIndex) => {
-                const cellElement = document.createElement('div');
-                cellElement.className = 'cell';
-                cellElement.textContent = cell.value === null ? '' : (cell.value.symbol ? 'X' : 'O');
-                cellElement.addEventListener('click', () => makeMove(gameId, board.id, rowIndex, cellIndex));
-                boardElement.appendChild(cellElement);
+        boardrow.forEach((board, rowIndex) => {
+            board.cells.forEach((cellRow, cellRowIndex) => {
+                cellRow.forEach((cell, cellIndex) => {
+                    const cellElement = document.createElement('div');
+                    cellElement.className = 'cell';
+                    cellElement.textContent = cell;
+                    cellElement.addEventListener('click', () => makeMove(gameId, board.id, rowIndex, cellIndex));
+                    boardElement.appendChild(cellElement);
+                });
             });
         });
 
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(game => {
             gameContainer.innerHTML = '';
+            console.log(game);
             game.boards.forEach(board => {
                 gameContainer.appendChild(createBoard(board, game.id));
             });
