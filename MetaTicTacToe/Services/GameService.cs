@@ -69,15 +69,7 @@ namespace MetaTicTacToe.Services
                 throw new ArgumentException("Invalid move");
             }
 
-            Board board = null;
-            try
-            {
-                board = game.Boards[move.BoardRow][move.BoardColumn];
-            } catch { }
-            if (board == null || board.Winner != null)
-            {
-                throw new ArgumentException("Invalid board");
-            }
+            Board board = game.Boards[move.BoardRow][move.BoardColumn];
             if (board.Cells[move.CellRow][move.CellColumn].Filled)
             {
                 throw new ArgumentException("Cell already occupied");
