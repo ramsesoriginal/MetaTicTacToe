@@ -28,6 +28,7 @@ namespace MetaTicTacToe
             services.AddTransient<IGameService, GameService>();
             services.AddScoped<IRuleService, RuleService>();
             services.AddScoped<IRule, CorrectPlayerRule>();
+            services.AddScoped<IRule, BoardDoneRule>();
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>

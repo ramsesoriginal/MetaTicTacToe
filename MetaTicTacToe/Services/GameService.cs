@@ -70,10 +70,7 @@ namespace MetaTicTacToe.Services
             }
 
             Board board = game.Boards[move.BoardRow][move.BoardColumn];
-            if (board.Cells[move.CellRow][move.CellColumn].Filled)
-            {
-                throw new ArgumentException("Cell already occupied");
-            }
+            
             if (move.Player != game.CurrentPlayer.Symbol)
             {
                 throw new ArgumentException("Wrong Player");
