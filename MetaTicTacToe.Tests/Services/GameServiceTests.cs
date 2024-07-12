@@ -10,12 +10,14 @@ namespace MetaTicTacToe.Tests.Services
     public class GameServiceTests
     {
         private readonly Mock<IGameRepository> _mockGameRepository;
+        private readonly Mock<IRuleService> _mockRuleService;
         private readonly GameService _gameService;
 
         public GameServiceTests()
         {
             _mockGameRepository = new Mock<IGameRepository>();
-            _gameService = new GameService(_mockGameRepository.Object);
+            _mockRuleService = new Mock<IRuleService>();
+            _gameService = new GameService(_mockGameRepository.Object, _mockRuleService.Object);
         }
 
         [Fact]
@@ -50,6 +52,7 @@ namespace MetaTicTacToe.Tests.Services
             };
             game.Boards[0][0] = new Board();
             _mockGameRepository.Setup(repo => repo.GetGame(1)).Returns(game);
+            _mockRuleService.Setup(service => service.ValidateMove(It.IsAny<Game>(), It.IsAny<Move>())).Returns(true);
 
             var move = new Move
             {
@@ -70,6 +73,37 @@ namespace MetaTicTacToe.Tests.Services
             Assert.Equal(game.Player2, updatedGame.CurrentPlayer);
             _mockGameRepository.Verify(repo => repo.UpdateGame(It.IsAny<Game>()), Times.Once);
         }
+
+        [Fact]
+        public void MakeMove_IsInvalidMove()
+        {
+            // Arrange
+            Player player = new Player("Player1", true);
+            var game = new Game
+            {
+                Id = 1,
+                Player1 = player,
+                Player2 = new Player("Player2", false),
+                CurrentPlayer = player
+            };
+            game.Boards[0][0] = new Board();
+            _mockGameRepository.Setup(repo => repo.GetGame(1)).Returns(game);
+            _mockRuleService.Setup(service => service.ValidateMove(It.IsAny<Game>(), It.IsAny<Move>())).Returns(false);
+
+            var move = new Move
+            {
+                GameId = 1,
+                BoardRow = 0,
+                BoardColumn = 0,
+                CellRow = 0,
+                CellColumn = 0,
+                Player = true
+            };
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => _gameService.MakeMove(move));
+        }
+
 
         [Fact]
         public void MakeMove_ShouldThrowException_WhenInvalidGameId()

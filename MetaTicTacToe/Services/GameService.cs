@@ -11,14 +11,16 @@ namespace MetaTicTacToe.Services
     public class GameService : IGameService
     {
         private readonly IGameRepository _gameRepository;
+        private readonly IRuleService _ruleService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameService"/> class.
         /// </summary>
         /// <param name="gameRepository">The game repository to use for storing and retrieving games.</param>
-        public GameService(IGameRepository gameRepository)
+        public GameService(IGameRepository gameRepository, IRuleService ruleService)
         {
             _gameRepository = gameRepository;
+            _ruleService = ruleService;
         }
 
         /// <summary>
@@ -60,6 +62,11 @@ namespace MetaTicTacToe.Services
             if (game == null)
             {
                 throw new ArgumentException("Invalid game ID");
+            }
+
+            if (!_ruleService.ValidateMove(game, move))
+            {
+                throw new ArgumentException("Invalid move");
             }
 
             Board board = null;

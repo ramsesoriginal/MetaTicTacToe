@@ -1,3 +1,5 @@
+using MetaTicTacToe.Models;
+using MetaTicTacToe.Models.Rules;
 using MetaTicTacToe.Repositories;
 using MetaTicTacToe.Services;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +26,8 @@ namespace MetaTicTacToe
             services.AddControllers();
             services.AddSingleton<IGameRepository, GameRepository>();
             services.AddTransient<IGameService, GameService>();
+            services.AddScoped<IRuleService, RuleService>();
+            services.AddScoped<IRule, CorrectPlayerRule>();
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
