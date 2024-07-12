@@ -19,8 +19,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore MetaTicTacToe/MetaTicTacToe.csproj
+      run: dotnet restore MetaTicTacToe/MetaTicTacToe.sln
     - name: Build
-      run: dotnet build MetaTicTacToe/MetaTicTacToe.csproj --no-restore
+      run: dotnet build MetaTicTacToe/MetaTicTacToe.sln --no-restore
     - name: Test
-      run: dotnet test MetaTicTacToe/MetaTicTacToe.csproj --no-build --verbosity normal
+      run: dotnet test MetaTicTacToe/MetaTicTacToe.sln --no-build --verbosity normal
