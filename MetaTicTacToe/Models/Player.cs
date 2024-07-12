@@ -7,6 +7,8 @@ namespace MetaTicTacToe.Models
 
         public Player(string name, bool symbol)
         {
+            if (name==null)
+                throw new ArgumentNullException("name can't be null");
             Name = name;
             Symbol = symbol;
         }
