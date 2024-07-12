@@ -41,6 +41,11 @@ namespace MetaTicTacToe.Models
         public Player Player2 { get; set; }
 
         /// <summary>
+        /// Gets or sets the last move in the game.
+        /// </summary>
+        public Move? LastMove { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Game"/> class and sets up the 3x3 grid of boards.
         /// </summary>
         public Game()

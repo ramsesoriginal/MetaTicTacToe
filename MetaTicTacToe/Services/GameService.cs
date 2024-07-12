@@ -71,15 +71,12 @@ namespace MetaTicTacToe.Services
 
             Board board = game.Boards[move.BoardRow][move.BoardColumn];
             
-            if (move.Player != game.CurrentPlayer.Symbol)
-            {
-                throw new ArgumentException("Wrong Player");
-            }
             board.Cells[move.CellRow][move.CellColumn].Value = game.CurrentPlayer;
             board.Winner = CheckWinner(board.Cells);
             game.Winner = CheckWinner(game.Boards);
 
             game.CurrentPlayer = game.CurrentPlayer == game.Player1 ? game.Player2 : game.Player1;
+            game.LastMove = move;
 
             _gameRepository.UpdateGame(game);
 

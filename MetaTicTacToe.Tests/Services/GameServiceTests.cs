@@ -72,6 +72,7 @@ namespace MetaTicTacToe.Tests.Services
             Assert.Equal(game.Player2.Name, updatedGame.CurrentPlayer.Name);
             Assert.Equal(game.Player2, updatedGame.CurrentPlayer);
             _mockGameRepository.Verify(repo => repo.UpdateGame(It.IsAny<Game>()), Times.Once);
+            Assert.Equal(move, updatedGame.LastMove);
         }
 
         [Fact]
