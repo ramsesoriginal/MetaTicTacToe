@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.forEach((cell, cellIndex) => {
                 const cellElement = document.createElement('div');
                 cellElement.className = 'cell';
-                cellElement.textContent = cell.value === null ? '' : (cell.value ? 'X' : 'O');
+                cellElement.textContent = cell.value === null ? '' : (cell.value.symbol ? 'X' : 'O');
                 cellElement.addEventListener('click', () => makeMove(gameId, board.id, rowIndex, cellIndex));
                 boardElement.appendChild(cellElement);
             });
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
-        fetch(`${CONFIG.BACKEND_URL}/game/start`, {
+        fetch(`${CONFIG.BACKEND_URL}/Game/start`, {
             method: 'POST'
         })
         .then(response => response.json())
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function makeMove(gameId, boardId, row, column) {
-        fetch(`${CONFIG.BACKEND_URL}/game/move`, {
+        fetch(`${CONFIG.BACKEND_URL}/Game/move`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function listGames() {
-        fetch(`${CONFIG.BACKEND_URL}/game/all`)
+        fetch(`${CONFIG.BACKEND_URL}/Game/all`)
         .then(response => response.json())
         .then(games => {
             gamesList.innerHTML = '';
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadGame(gameId) {
-        fetch(`${CONFIG.BACKEND_URL}/game/${gameId}/status`)
+        fetch(`${CONFIG.BACKEND_URL}/Game/${gameId}/status`)
         .then(response => response.json())
         .then(game => {
             gameContainer.innerHTML = '';
@@ -86,6 +86,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         })
         .catch(error => console.error('Error loading game:', error));
+    }
+
+    function deleteGame(gameId) {
+        fetch(`${CONFIG.BACKEND_URL}/Game/${gameId}`, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            listGames();
+        })
+        .catch(error => console.error('Error deleting game:', error));
     }
 
     // Automatically list games when the page loads
