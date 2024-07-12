@@ -5,15 +5,26 @@ using System.Reflection;
 
 namespace MetaTicTacToe.Services
 {
+    /// <summary>
+    /// Service for managing the logic of Meta Tic Tac Toe games.
+    /// </summary>
     public class GameService : IGameService
     {
         private readonly IGameRepository _gameRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameService"/> class.
+        /// </summary>
+        /// <param name="gameRepository">The game repository to use for storing and retrieving games.</param>
         public GameService(IGameRepository gameRepository)
         {
             _gameRepository = gameRepository;
         }
 
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        /// <returns>The newly started game.</returns>
         public Game StartGame()
         {
             var p1 = new Player("Player1", true);
@@ -36,6 +47,12 @@ namespace MetaTicTacToe.Services
             return _gameRepository.AddGame(game);
         }
 
+        /// <summary>
+        /// Makes a move in the specified game.
+        /// </summary>
+        /// <param name="move">The move to make.</param>
+        /// <returns>The updated game after the move is made.</returns>
+        /// <exception cref="ArgumentException">Thrown when the game ID, board, cell, or player is invalid.</exception>
         public Game MakeMove(Move move)
         {
             var game = _gameRepository.GetGame(move.GameId);
@@ -45,8 +62,12 @@ namespace MetaTicTacToe.Services
                 throw new ArgumentException("Invalid game ID");
             }
 
-            var board = game.Boards[move.BoardRow][move.BoardColumn];
-            if (board == null || !(board.Winner==null))
+            Board board = null;
+            try
+            {
+                board = game.Boards[move.BoardRow][move.BoardColumn];
+            } catch { }
+            if (board == null || board.Winner != null)
             {
                 throw new ArgumentException("Invalid board");
             }
@@ -69,11 +90,21 @@ namespace MetaTicTacToe.Services
             return game;
         }
 
+        /// <summary>
+        /// Gets the status of a game by its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the game.</param>
+        /// <returns>The game with the specified identifier, or null if no game is found.</returns>
         public Game GetGameStatus(int id)
         {
             return _gameRepository.GetGame(id);
         }
 
+        /// <summary>
+        /// Checks for a winner in a set of boards or cells.
+        /// </summary>
+        /// <param name="boards">The set of boards or cells to check.</param>
+        /// <returns>The player who won, or null if there is no winner.</returns>
         private Player? CheckWinner(IWinner[][] boards)
         {
             for (int i = 0; i < 3; i++)
