@@ -2,11 +2,11 @@ namespace MetaTicTacToe.Models
 {
     public class Move
     {
-        public int GameId { get; set; }
-        public int BoardRow { get; set; }
-        public int BoardColumn { get; set; }
-        public int CellRow { get; set; }
-        public int CellColumn { get; set; }
-        public string Player { get; set; }
+        public required int GameId { get; set; }
+        public required int BoardRow { get; set; }
+        public required int BoardColumn { get; set; }
+        public required int CellRow { get; set; }
+        public required int CellColumn { get; set; }
+        public required bool Player { get; set; }
     }
 }
